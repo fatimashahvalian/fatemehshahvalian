@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Display Image from Blob</title>
+  <style>
+    #image {
+      font-family: Arial, sans-serif; /* فونت پیشفرض */
+    }
+  </style>
+</head>
+<body>
+  <h1>Image from Blob Example</h1>
+  <img id="image" src="" alt="Fetched Image">
+  <button onclick="changeFont()">Change Font</button>
+
+  <script>
+    let currentFont = 'Arial, sans-serif';
+
+    fetch('https://dummyjson.com/image/400x200/008080/ffffff?text=fatemeh+shahvalian')
+    .then(response => response.blob())
+    .then(blob => {
+      const url = URL.createObjectURL(blob);
+      document.getElementById('image').src = url;
+    })
+    .catch(error => {
+      console.error('Error fetching image:', error);
+    });
+
+    function changeFont() {
+      const fonts = ['Arial, sans-serif', 'Georgia, serif', 'Verdana, sans-serif']; // فونت‌های قابل انتخاب
+      const randomIndex = Math.floor(Math.random() * fonts.length);
+      currentFont = fonts[randomIndex];
+      document.getElementById('image').style.fontFamily = currentFont;
+    }
+  </script>
+</body>
+</html>
